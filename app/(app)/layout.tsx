@@ -37,14 +37,14 @@ const navItems = [
     href: "/appointments",
     icon: Calendar,
   },
+];
+
+const moreItems = [
   {
     name: "Cover",
     href: "/insurance",
     icon: Shield,
   },
-];
-
-const moreItems = [
   {
     name: "Scan",
     href: "/image-scanner",
