@@ -1,0 +1,166 @@
+import Link from "next/link";
+import {
+  Calendar,
+  Camera,
+  History,
+  Home,
+  MessageSquare,
+  Shield,
+  Stethoscope,
+  User,
+} from "lucide-react";
+
+const navItems = [
+  {
+    name: "Home",
+    href: "/dashboard",
+    icon: Home,
+  },
+  {
+    name: "Check",
+    href: "/symptom-checker",
+    icon: Stethoscope,
+  },
+  {
+    name: "AI",
+    href: "/chatbot",
+    icon: MessageSquare,
+  },
+  {
+    name: "Book",
+    href: "/appointments",
+    icon: Calendar,
+  },
+  {
+    name: "Cover",
+    href: "/insurance",
+    icon: Shield,
+  },
+  {
+    name: "Scan",
+    href: "/image-scanner",
+    icon: Camera,
+  },
+  {
+    name: "History",
+    href: "/history",
+    icon: History,
+  },
+  {
+    name: "Profile",
+    href: "/profile",
+    icon: User,
+  },
+];
+
+export default function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="min-h-screen bg-slate-50 lg:grid lg:grid-cols-[280px_1fr]">
+      {/* Desktop Sidebar */}
+      <aside className="hidden border-r border-slate-200 bg-white lg:flex lg:flex-col">
+        <div className="p-8">
+          <h1 className="text-3xl font-bold text-[#005BAC]">
+            SD Health
+          </h1>
+
+          <p className="mt-2 text-sm text-slate-500">
+            Healthcare Companion
+          </p>
+        </div>
+
+        <nav className="flex-1 px-4">
+          <ul className="space-y-2">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-4 rounded-2xl px-4 py-3 text-slate-700 transition hover:bg-blue-50 hover:text-[#005BAC]"
+                  >
+                    <Icon size={20} />
+
+                    <span className="font-medium">
+                      {item.name}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="p-4">
+          <div className="rounded-3xl bg-green-50 p-5">
+            <p className="text-sm text-slate-500">
+              Insurance Status
+            </p>
+
+            <p className="mt-2 font-semibold text-green-700">
+              Active Coverage
+            </p>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <div className="flex min-h-screen flex-col">
+        <header className="sticky top-0 z-40 border-b border-slate-200 bg-white">
+          <div className="flex items-center justify-between px-5 py-4 lg:px-8">
+            <div>
+              <h2 className="text-lg font-semibold">
+                Welcome Back 👋
+              </h2>
+
+              <p className="text-sm text-slate-500">
+                Your health at a glance
+              </p>
+            </div>
+
+            <Link
+              href="/profile"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-[#005BAC] font-semibold text-white"
+            >
+              P
+            </Link>
+          </div>
+        </header>
+
+        <main className="flex-1 p-5 pb-24 lg:p-8">
+          {children}
+        </main>
+      </div>
+
+      {/* Mobile Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white lg:hidden">
+        <div className="grid grid-cols-5">
+          {navItems.slice(0, 5).map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex flex-col items-center gap-1 py-3"
+              >
+                <Icon
+                  size={20}
+                  className="text-slate-600"
+                />
+
+                <span className="text-[11px] font-medium text-slate-600">
+                  {item.name}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </div>
+  );
+}
