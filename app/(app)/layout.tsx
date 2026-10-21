@@ -1,13 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   Calendar,
   Camera,
   History,
   Home,
+  Menu,
   MessageSquare,
+  Settings,
   Shield,
   Stethoscope,
   User,
+  X,
 } from "lucide-react";
 
 const navItems = [
@@ -36,6 +42,9 @@ const navItems = [
     href: "/insurance",
     icon: Shield,
   },
+];
+
+const moreItems = [
   {
     name: "Scan",
     href: "/image-scanner",
@@ -51,6 +60,11 @@ const navItems = [
     href: "/profile",
     icon: User,
   },
+  {
+    name: "Settings",
+    href: "/settings",
+    icon: Settings,
+  },
 ];
 
 export default function AppLayout({
@@ -58,6 +72,8 @@ export default function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-50 lg:grid lg:grid-cols-[280px_1fr]">
       {/* Desktop Sidebar */}
@@ -74,7 +90,7 @@ export default function AppLayout({
 
         <nav className="flex-1 px-4">
           <ul className="space-y-2">
-            {navItems.map((item) => {
+            {[...navItems, ...moreItems].map((item) => {
               const Icon = item.icon;
 
               return (
@@ -136,10 +152,51 @@ export default function AppLayout({
         </main>
       </div>
 
+      {/* Mobile More Menu */}
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-50 bg-black/30"
+            onClick={() => setOpen(false)}
+          />
+
+          <div className="fixed bottom-20 left-4 right-4 z-50 rounded-3xl border border-slate-200 bg-white p-4 shadow-xl">
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="font-semibold">
+                More Options
+              </h3>
+
+              <button onClick={() => setOpen(false)}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {moreItems.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-3 rounded-2xl bg-slate-50 p-4"
+                  >
+                    <Icon size={18} />
+
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
+
       {/* Mobile Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white lg:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white lg:hidden">
         <div className="grid grid-cols-5">
-          {navItems.slice(0, 5).map((item) => {
+          {navItems.map((item) => {
             const Icon = item.icon;
 
             return (
@@ -159,6 +216,20 @@ export default function AppLayout({
               </Link>
             );
           })}
+
+          <button
+            onClick={() => setOpen(true)}
+            className="flex flex-col items-center gap-1 py-3"
+          >
+            <Menu
+              size={20}
+              className="text-slate-600"
+            />
+
+            <span className="text-[11px] font-medium text-slate-600">
+              More
+            </span>
+          </button>
         </div>
       </nav>
     </div>
