@@ -146,7 +146,46 @@ export default function AppLayout({
             </Link>
           </div>
         </header>
+{/* Insurance Partners */}
+<div className="border-b border-slate-200 bg-white">
+  <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-6 px-5 py-3 text-sm font-medium text-slate-500">
+    <a
+      href="https://www.aia.com.my"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-[#005BAC]"
+    >
+      AIA
+    </a>
 
+    <a
+      href="https://www.prudential.com.my"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-[#005BAC]"
+    >
+      Prudential
+    </a>
+
+    <a
+      href="https://www.greateasternlife.com/my"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-[#005BAC]"
+    >
+      Great Eastern
+    </a>
+
+    <a
+      href="https://www.etiqa.com.my"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-[#005BAC]"
+    >
+      Etiqa
+    </a>
+  </div>
+</div>
         <main className="flex-1 p-5 pb-24 lg:p-8">
           {children}
         </main>

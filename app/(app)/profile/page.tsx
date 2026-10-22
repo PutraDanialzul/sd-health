@@ -4,6 +4,8 @@ import {
   Mail,
   Phone,
   User,
+  Shield,
+  HeartPulse,
 } from "lucide-react";
 
 export default function ProfilePage() {
@@ -15,95 +17,155 @@ export default function ProfilePage() {
         </h1>
 
         <p className="mt-2 text-slate-500">
-          Personal healthcare information.
+          Personal healthcare information and medical overview.
         </p>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6">
-        <div className="flex items-center gap-4">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#005BAC] text-2xl font-bold text-white">
+      {/* Profile Hero */}
+      <section className="overflow-hidden rounded-3xl bg-gradient-to-r from-[#005BAC] to-[#00A3E0] p-8 text-white">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center">
+          <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white/20 text-3xl font-bold backdrop-blur">
             P
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-3xl font-bold">
               Putra Danial
             </h2>
 
-            <p className="text-slate-500">
+            <p className="mt-2 text-blue-100">
               SD Health Member
             </p>
+
+            <div className="mt-4 inline-flex rounded-full bg-white/20 px-4 py-2 text-sm font-medium">
+              Premium Healthcare Coverage Active
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6">
-        <h2 className="mb-5 font-semibold">
-          Personal Information
-        </h2>
+      {/* Summary Cards */}
+      <section className="grid gap-4 md:grid-cols-3">
+        <SummaryCard
+          icon={<Droplet size={22} />}
+          title="Blood Type"
+          value="O+"
+        />
 
-        <div className="space-y-4">
-          <InfoRow
-            icon={<User size={18} />}
-            label="Age"
-            value="19 Years Old"
-          />
+        <SummaryCard
+          icon={<Shield size={22} />}
+          title="Allergies"
+          value="None"
+        />
 
-          <InfoRow
-            icon={<Calendar size={18} />}
-            label="Date of Birth"
-            value="01 January 2007"
-          />
+        <SummaryCard
+          icon={<HeartPulse size={22} />}
+          title="Conditions"
+          value="Healthy"
+        />
+      </section>
 
-          <InfoRow
-            icon={<Mail size={18} />}
-            label="Email"
-            value="putra@example.com"
-          />
+      {/* Details */}
+      <section className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6">
+          <h2 className="mb-5 text-lg font-semibold">
+            Personal Information
+          </h2>
 
-          <InfoRow
-            icon={<Phone size={18} />}
-            label="Phone"
-            value="+60 12-345 6789"
-          />
+          <div className="space-y-4">
+            <InfoRow
+              icon={<User size={18} />}
+              label="Age"
+              value="19 Years Old"
+            />
+
+            <InfoRow
+              icon={<Calendar size={18} />}
+              label="Date of Birth"
+              value="01 January 2007"
+            />
+
+            <InfoRow
+              icon={<Mail size={18} />}
+              label="Email"
+              value="putra@example.com"
+            />
+
+            <InfoRow
+              icon={<Phone size={18} />}
+              label="Phone"
+              value="+60 12-345 6789"
+            />
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-slate-200 bg-white p-6">
+          <h2 className="mb-5 text-lg font-semibold">
+            Medical Information
+          </h2>
+
+          <div className="space-y-4">
+            <InfoRow
+              icon={<Droplet size={18} />}
+              label="Blood Type"
+              value="O+"
+            />
+
+            <InfoRow
+              icon={<Droplet size={18} />}
+              label="Allergies"
+              value="None Reported"
+            />
+
+            <InfoRow
+              icon={<Droplet size={18} />}
+              label="Chronic Conditions"
+              value="None Reported"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6">
-        <h2 className="mb-5 font-semibold">
-          Medical Information
-        </h2>
-
-        <div className="space-y-4">
-          <InfoRow
-            icon={<Droplet size={18} />}
-            label="Blood Type"
-            value="O+"
-          />
-
-          <InfoRow
-            icon={<Droplet size={18} />}
-            label="Allergies"
-            value="None Reported"
-          />
-
-          <InfoRow
-            icon={<Droplet size={18} />}
-            label="Chronic Conditions"
-            value="None Reported"
-          />
-        </div>
-      </section>
-
+      {/* Health Status */}
       <section className="rounded-3xl border border-green-200 bg-green-50 p-6">
-        <h2 className="font-semibold text-green-700">
-          Health Status
-        </h2>
+        <div className="flex items-center gap-3">
+          <HeartPulse className="text-green-700" />
 
-        <p className="mt-2 text-green-700">
-          No active health concerns reported.
+          <h2 className="font-semibold text-green-700">
+            Health Status
+          </h2>
+        </div>
+
+        <p className="mt-3 text-green-700">
+          No active health concerns reported. Medical records indicate normal health status.
         </p>
       </section>
+    </div>
+  );
+}
+
+function SummaryCard({
+  icon,
+  title,
+  value,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-3xl border border-blue-100 bg-blue-50 p-5">
+      <div className="text-[#005BAC]">
+        {icon}
+      </div>
+
+      <p className="mt-4 text-sm text-slate-500">
+        {title}
+      </p>
+
+      <p className="mt-1 text-xl font-semibold">
+        {value}
+      </p>
     </div>
   );
 }
